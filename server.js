@@ -16,10 +16,10 @@ const port = 3000;
 app.use(express.static(__dirname + '/public'))
 
 app.get('/',(req,res)=>{
-    res.sendFile(__dirname+'/index.html')
+    res.sendFile(__dirname+'/public/index.html')
 });
 app.get('/main',(req,res)=>{
-  res.sendFile(__dirname+'/main.html')
+  res.sendFile(__dirname+'/public/main.html')
 });
 // app.get('/download',(req,res)=>{
 //     res.sendFile(__dirname+'/download.html')
