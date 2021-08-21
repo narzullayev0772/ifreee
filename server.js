@@ -5,8 +5,6 @@ const http = require('http');
 const path = require('path');
 const server = http.createServer(app);
 
-const multer = require("multer")
-
 
 const {Server} = require('socket.io');
 const io = new Server(server);
