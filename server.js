@@ -38,7 +38,7 @@ let connections = [];
 io.on('connection', (socket) => {
 
   connections.push(socket);
-  console.log("Connected:", connections.length );
+
 
 
 socket.on('disconnect', function (data) {
@@ -48,14 +48,13 @@ socket.on('disconnect', function (data) {
   }
   
   connections.splice(connections.indexOf(socket), 1);
-  console.log("Disconnected:", connections.length );
-  console.log(userList);
+
   });
 
   socket.on('new user', (data) => {
     socket.username = data
     userList.push(socket.username);
-    console.log(userList);
+
     updateUsernames();
     });
 
@@ -140,6 +139,4 @@ socket.on('disconnect', function (data) {
 
 
 
-server.listen(PORT,()=>{
-    console.log('http://localhost:'+PORT);
-})
+server.listen(PORT)
