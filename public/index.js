@@ -5,10 +5,10 @@ const listMessage = document.getElementById('msg');
 const chat = document.querySelector('.container')
 const navbar = document.querySelector('.navbar')
 
+const img = document.querySelector('.img')
 
 
-
-
+console.log(img);
 var paramsString =location.search;
 var searchParams = new URLSearchParams(paramsString);
 var names = searchParams.get("name")
@@ -65,12 +65,9 @@ socket.emit('new user',names);
 socket.on('userlist',(data)=>{
     onlineUsers.innerHTML = '<p style="color:white">'+data.length+' ta a\'zo '+'</p>'
     data.forEach(user => {
-        onlineUsers.innerHTML += `<div class="account"><strong>${user}
+        onlineUsers.innerHTML += `<div class="account"><strong class="username">${user}
         </strong><span class = 'checker'></span></div>`;
     });
 })
-
-
-
 
 

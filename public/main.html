@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,11 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://kit.fontawesome.com/ea10277d55.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+ integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" 
+ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <div class="navbar">
@@ -16,23 +20,60 @@
             <h1>iFree</h1>
         </div>
         <div class="onlineUsers">
-            
         </div>
     </div>
     <div class="container" id="chat">
         <div class="nav-user">
-            <div class="wrapUser"></div>
+            <div class="wrapUser">
+                    <i class='fas fa-arrow-left list' style="font-size: 24px;color:white;"></i>
+                    <i class='fas fa-search' style="font-size: 24px;color:white;"></i>
+            </div>
         </div>
         <div class="msg" id="msg">
         </div>
         <div class="bottom">
             <form action="" id="form">
-             <textarea class="input" rows="1" id='input' name="text" placeholder="Xabar"></textarea>
-             <button class="send" id="sender">+</button>
+             <textarea class="input" rows="1" id='input' name="text" placeholder="Xabar" autofocus></textarea>
+             <div class="fileWrap">
+                <input type="file" name="file" id="file" class="file" accept="image/*">
+                <i class='fas fa-image' style="font-size:2rem;"></i>
+             </div>
+             <button class="send" id="sender">
+                <i class="fab fa-telegram-plane"></i>
+            </button>
             </form>
          </div>
     </div>
 </body>
+ <script>
+     $(document).ready(function(){
+     });
+ </script>
+
 <script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io()
+    socket.on('imageSend',(msg, base64image)=>{
+        // $('.msg').append(
+        //     $('<p>').append(
+        //         $('<b>').text(msg),'<img src="'+base64image+'"/>'
+        //     )
+        // );
+        document.querySelector('.msg').innerHTML+='<img class ="image" src="'+base64image+'"/>'
+})
+
+
+$(function(){
+    $('#file').on('change',(e)=>{
+        var file = e.originalEvent.target.files[0]
+        var reader = new FileReader();
+        reader.onload = function (evt){
+            socket.emit('user image', evt.target.result);
+        };
+        reader.readAsDataURL(file);
+    })
+})
+
+</script>
 <script src="index.js"></script>
 </html>

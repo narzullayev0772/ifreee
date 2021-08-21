@@ -66,7 +66,7 @@ body{
 
 
 .nav-user{
-    width: 100%;
+    width: 80%;
     height: 10vh;
     background-color: var(--black);
     position: fixed;
@@ -75,29 +75,37 @@ body{
 }
 .wrapUser{
     position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding-inline: 5%;
+}
+
+.account::before{
+    content: " ";
+    width: 50px;
+    height: 50px;
+    background-color: var(--msg2);
+    border-radius: 50%;
+    margin-right: 5%;
 }
 
 
 
 
 
-
-
-
-
-.send{
-    box-shadow: 3px 2px 10px #000,
-    -2px 2px 10px #000;
-}
 .bottom,#form{
     width: 80%;
     height: 10vh;
     position: fixed;
     right: 0;
     bottom:0;
-    justify-content: space-evenly;
+    justify-content: space-between;
     z-index: 1;
     background-color: var(--black);
+    padding-inline: 2%;
 }
 #form{
     width: 80%;
@@ -115,6 +123,7 @@ body{
     border-radius:1em;
     font-size: 1.4rem;
     padding: 10px;
+    scroll-behavior: smooth;
 }
 .send{
     background-color: var(--white);
@@ -124,6 +133,9 @@ body{
     border-radius: 50%;
     font-size: 2rem;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .msg{
     width: 98%;
@@ -135,6 +147,37 @@ body{
     height: 80vh;
     margin-top: auto;
 }
+.image{
+height: 200px;
+border-radius: 10px;
+border: 2px solid var(--white);
+margin-bottom: 3%;
+}
+.fileWrap{
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    background-color:var(--white);
+    border-radius: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.file{
+    opacity: 0;
+    width: 3rem;
+    position:absolute;
+}
+
+
+
+
+
+
+
+
+
 .user{
     max-width: 60%;
     width: fit-content;
@@ -241,10 +284,7 @@ body{
     .navbar{
         display: none;
     }
-    .container{
-        width: 100%;
-    }
-    #form{
+    .container,.navbar,.nav-user,#form,.bottom{
         width: 100%;
     }
     .input::placeholder{

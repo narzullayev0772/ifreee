@@ -61,7 +61,9 @@ socket.on('disconnect', function (data) {
     }
 
 
-
+socket.on('user image',(image)=>{
+  io.emit('imageSend','send image:',image);
+})
 
 
 
