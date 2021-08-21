@@ -12,7 +12,7 @@ const {Server} = require('socket.io');
 const io = new Server(server);
 
 
-const port = 3000;
+const PORT= 3000 || process.env.PORT;
 app.use(express.static(__dirname + '/public'))
 
 app.get('/',(req,res)=>{
@@ -140,6 +140,6 @@ socket.on('disconnect', function (data) {
 
 
 
-server.listen(port,()=>{
+server.listen(PORT,()=>{
     console.log('http://localhost:'+port);
 })
