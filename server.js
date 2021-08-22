@@ -19,9 +19,9 @@ app.get('/',(req,res)=>{
 app.get('/main',(req,res)=>{
   res.sendFile(__dirname+'main.html')
 });
-// app.get('/download',(req,res)=>{
-//     res.sendFile(__dirname+'/download.html')
-// });
+app.get('/download',(req,res)=>{
+    res.sendFile(__dirname+'/public/download.html')
+});
 
 
 
@@ -64,7 +64,6 @@ socket.on('disconnect', function (data) {
 socket.on('user image',(image)=>{
   io.emit('imageSend',image);
 })
-
 
 
 

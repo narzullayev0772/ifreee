@@ -52,7 +52,7 @@
 
 .container{
     width: 80%;
-    height: 90vh;
+    height: 92vh;
     position: relative;
     float: right;
     overflow-y: scroll;
@@ -64,8 +64,8 @@
 
 
 .nav-user{
-    width: 80%;
-    height: 10vh;
+    width: 100%;
+    height: 8vh;
     background-color: var(--black);
     position: fixed;
     top: 0;
@@ -95,7 +95,7 @@
 
 .bottom,#form{
     width: 80%;
-    height: 10vh;
+    height: 8vh;
     position: fixed;
     right: 0;
     bottom:0;
@@ -141,7 +141,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    max-height: 50vh;
+    max-height: fit-content;
 }
 .image{
 width: 100%;
@@ -150,11 +150,13 @@ border: 1px solid var(--white);
 }
 .absolute{
     position: absolute !important;
-    top: 1%;
     left: 1%;
 }
 .size{
-    top: 4%;
+    top: 6%;
+}
+.size:hover{
+    display: none;
 }
 .fileWrap{
     width: 3rem;
@@ -212,6 +214,7 @@ border: 1px solid var(--white);
     overflow: hidden;
     white-space: pre;
     text-overflow: ellipsis;
+    font-weight: 700;
     
 }
 .msg-user:hover{
@@ -299,6 +302,10 @@ border: 1px solid var(--white);
     }
     .username{
         display: none;
+    }
+    .size{
+        top: 12%;
+        font-size: .8rem;
     }
 }
 @media screen and (max-width:576px) {

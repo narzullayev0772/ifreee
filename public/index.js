@@ -12,7 +12,6 @@ var names = searchParams.get("name")
 
 
 
-
 var socket = io();
 var form = document.getElementById('form');
 
@@ -42,22 +41,38 @@ userName.innerText =msg.name
 if(msg.id == socket.id){
   divWrap.className = 'wrapRight'
   userName.style.display ="none"
+  div.style.borderBottomRightRadius="0"
 }
 else{
   divWrap.className = 'wrapleft'
   div.style.backgroundColor ="var(--black)"
+  div.style.borderBottomLeftRadius="0"
 }
 div.appendChild(userName)
 div.appendChild(userText)
 divWrap.appendChild(div)
 listMessage.appendChild(divWrap);
-chat.scrollTo( 0, chat.scrollHeight);
 
+chat.scrollTo( 0, chat.scrollHeight);
+hasMessage();
 })
 
 
 
+let p = document.createElement('p');
+p.className = "user"
+p.style.margin = "auto"
+p.innerText = "  Hozircha hech qanday xabar yo'q... "
 
+function hasMessage(){
+  if(listMessage.childElementCount==0){
+    listMessage.appendChild(p)
+  }
+  else{
+    p.style.display = "none"
+  }
+}
+hasMessage();
 
 let onlineUsers = document.querySelector('.onlineUsers')
 socket.emit('new user',names);
@@ -93,18 +108,20 @@ socket.on('imageSend',(base64image)=>{
   divUser.style.padding = "0"
   if(base64image.id == socket.id){
     divWrap.className = 'wrapRight'
+    divUser.style.borderBottomRightRadius="0"
   }
   else{
     divWrap.className = 'wrapleft'
     divUser.style.backgroundColor="var(--black)"
+    divUser.style.borderBottomLeftRadius="0"
   }
   divUser.innerHTML=
   '<p class ="msg-user absolute">'+base64image.name+
-  '<p class ="absolute size">'+Math.floor(base64image.url.length*3/4096)+'kb</p>'+
+  '<p class="absolute size">'+Math.floor(base64image.url.length*3/4096)+' kb</p>'+
   '</p><img class ="image" src="'+base64image.url+'"/>'
   divWrap.appendChild(divUser);
-  listMessage.appendChild(divWrap)
-  chat.scrollTo( 0, chat.scrollHeight);
+  listMessage.appendChild(divWrap);
+  chat.scrollTo( 0, listMessage.scrollHeight);
 })
 
 
