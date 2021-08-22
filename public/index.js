@@ -104,9 +104,9 @@ socket.on('imageSend',(base64image)=>{
   '</p><img class ="image" src="'+base64image.url+'"/>'
   divWrap.appendChild(divUser);
   listMessage.appendChild(divWrap)
+  setInterval(() => {
+    chat.scrollTo( 0, chat.scrollHeight);
+  }, 1);
 })
 
-setInterval(() => {
-  chat.scrollTo( 0, chat.scrollHeight);
-}, 1);
 
