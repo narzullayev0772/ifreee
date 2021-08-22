@@ -35,7 +35,7 @@
             <form action="" id="form">
              <textarea class="input" rows="1" id='input' name="text" placeholder="Xabar" autofocus></textarea>
              <div class="fileWrap">
-                <input type="file" name="file" id="file" class="file" accept="image/*">
+                <input type="file" name="file" id="file" class="file" accept="image/*" multiple>
                 <i class='fas fa-image' style="font-size:2rem;"></i>
              </div>
              <button class="send" id="sender">
@@ -51,29 +51,5 @@
  </script>
 
 <script src="/socket.io/socket.io.js"></script>
-<script>
-    var socket = io()
-    socket.on('imageSend',(msg, base64image)=>{
-        // $('.msg').append(
-        //     $('<p>').append(
-        //         $('<b>').text(msg),'<img src="'+base64image+'"/>'
-        //     )
-        // );
-        document.querySelector('.msg').innerHTML+='<img class ="image" src="'+base64image+'"/>'
-})
-
-
-$(function(){
-    $('#file').on('change',(e)=>{
-        var file = e.originalEvent.target.files[0]
-        var reader = new FileReader();
-        reader.onload = function (evt){
-            socket.emit('user image', evt.target.result);
-        };
-        reader.readAsDataURL(file);
-    })
-})
-
-</script>
 <script src="index.js"></script>
 </html>

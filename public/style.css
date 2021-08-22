@@ -4,14 +4,12 @@
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-body{
-    background-color: var(--msg2);
-}
 :root{
-    --black:#141822;
+    --black:#001e2f;
     --white:#EEEDF0;
-    --msg:#00000085;
-    --msg2:#0088cc;
+    --msg:#001e2fe0;
+    --msg2:#054971;
+    --back:rgb(0 30 47 / 90%);
 }
 .bottom, .container,.send,.input,#form{
     display: flex;
@@ -21,8 +19,8 @@ body{
     width: 20%;
     height: 100vh;
     float: left;
-    background-color:rgba(0, 0, 0, 0.77);
     overflow-y: scroll;
+    background: var(--black);
 }
 
 
@@ -55,12 +53,12 @@ body{
 .container{
     width: 80%;
     height: 90vh;
-    background-color:#00000080;
     position: relative;
     float: right;
     overflow-y: scroll;
     display: flex;
     flex-direction:column;
+    background-color: rgb(0 30 47 / 98%);
 }
 
 
@@ -82,7 +80,6 @@ body{
     height: 100%;
     padding-inline: 5%;
 }
-
 .account::before{
     content: " ";
     width: 50px;
@@ -143,15 +140,21 @@ body{
     padding: 2%;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    height: 80vh;
-    margin-top: auto;
+    align-items: flex-start;
+    max-height: 50vh;
 }
 .image{
-height: 200px;
+width: 100%;
 border-radius: 10px;
-border: 2px solid var(--white);
-margin-bottom: 3%;
+border: 1px solid var(--white);
+}
+.absolute{
+    position: absolute !important;
+    top: 1%;
+    left: 1%;
+}
+.size{
+    top: 4%;
 }
 .fileWrap{
     width: 3rem;
@@ -181,11 +184,15 @@ margin-bottom: 3%;
 .user{
     max-width: 60%;
     width: fit-content;
-    padding:.4rem .8rem;
-    background-color: var(--msg);
+    padding: .4rem;
+    background-color: var(--msg2);
     color: var(--white);
     border-radius:10px;
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
 }
 .wrapleft,.wrapRight{
     display: flex;
@@ -205,36 +212,42 @@ margin-bottom: 3%;
     overflow: hidden;
     white-space: pre;
     text-overflow: ellipsis;
+    
 }
 .msg-user:hover{
     text-overflow:unset;
 }
 .msg-text{
-    font-size: 1rem;
+    font-size: 1.5rem;
     max-width: 100%;
     height: fit-content;
     text-overflow: clip;
     overflow-wrap: break-word;
 }
+.logo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 10vh;
+    position: sticky;
+    top: 0 !important;
+}
 .logo h1{
     font-family: 'Fredoka One', cursive;
     font-size: 2.5rem;
-    text-align: center;
-    background-color: var(--black);
     color: var(--white);
-    box-shadow: .1px .1px 5px var(--white);
-    position: sticky;
-    top: 0 !important;
+
 }
 .account{
     display: flex;
     flex-direction: row;
     align-items: center;
     margin: 2%;
-    background-color: var(--white);
+    background-color:rgb(5 34 51);
     padding: 2%;
     border-radius: 10px;
-    max-width: 100%;
+    max-width: 100%;color: var(--white);
 }
 .img{
     position: relative;
@@ -280,6 +293,14 @@ margin-bottom: 3%;
     text-overflow: ellipsis;
     margin-left: 10%;
 }
+@media screen and (max-width:991px){
+    .account{
+        width: fit-content;
+    }
+    .username{
+        display: none;
+    }
+}
 @media screen and (max-width:576px) {
     .navbar{
         display: none;
@@ -291,6 +312,10 @@ margin-bottom: 3%;
         bottom: 30%;
     }
     .user{
-        max-width: 80%;
+        max-width: 80% !important;
     }
+    .msg-text{
+        font-size: 1.1rem;
+    }
+
 }

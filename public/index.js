@@ -5,10 +5,6 @@ const listMessage = document.getElementById('msg');
 const chat = document.querySelector('.container')
 const navbar = document.querySelector('.navbar')
 
-const img = document.querySelector('.img')
-
-
-console.log(img);
 var paramsString =location.search;
 var searchParams = new URLSearchParams(paramsString);
 var names = searchParams.get("name")
@@ -45,9 +41,11 @@ userName.innerText =msg.name
 
 if(msg.id == socket.id){
   divWrap.className = 'wrapRight'
+  userName.style.display ="none"
 }
 else{
   divWrap.className = 'wrapleft'
+  div.style.backgroundColor ="var(--black)"
 }
 div.appendChild(userName)
 div.appendChild(userText)
@@ -56,6 +54,7 @@ listMessage.appendChild(divWrap);
 chat.scrollTo( 0, chat.scrollHeight);
 
 })
+
 
 
 
@@ -70,4 +69,44 @@ socket.on('userlist',(data)=>{
     });
 })
 
+
+
+
+$(function(){
+$('#file').on('change',(e)=>{
+    var file = e.originalEvent.target.files[0]
+    var reader = new FileReader();
+    reader.onload = function (evt){
+        socket.emit('user image',  {
+          id:socket.id,
+          url:evt.target.result,
+          name:names
+        });
+    };
+    reader.readAsDataURL(file);
+})
+})
+socket.on('imageSend',(base64image)=>{
+  let divWrap = document.createElement('div')
+  let divUser = document.createElement('div');
+  divUser.className = "user"
+  divUser.style.padding = "0"
+  if(base64image.id == socket.id){
+    divWrap.className = 'wrapRight'
+  }
+  else{
+    divWrap.className = 'wrapleft'
+    divUser.style.backgroundColor="var(--black)"
+  }
+  divUser.innerHTML=
+  '<p class ="msg-user absolute">'+base64image.name+
+  '<p class ="absolute size">'+Math.floor(base64image.url.length*3/4096)+'kb</p>'+
+  '</p><img class ="image" src="'+base64image.url+'"/>'
+  divWrap.appendChild(divUser);
+  sender.addEventListener('click',()=>{
+
+    listMessage.appendChild(divWrap)
+    chat.scrollTo( 0, chat.scrollHeight);
+  })
+})
 
