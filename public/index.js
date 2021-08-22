@@ -103,7 +103,10 @@ socket.on('imageSend',(base64image)=>{
   '<p class ="absolute size">'+Math.floor(base64image.url.length*3/4096)+'kb</p>'+
   '</p><img class ="image" src="'+base64image.url+'"/>'
   divWrap.appendChild(divUser);
-  chat.scrollTo( 0, chat.scrollHeight);
   listMessage.appendChild(divWrap)
 })
+
+setInterval(() => {
+  chat.scrollTo( 0, chat.scrollHeight);
+}, 1);
 
