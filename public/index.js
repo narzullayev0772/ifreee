@@ -5,33 +5,50 @@ const listMessage = document.getElementById('msg');
 const chat = document.querySelector('.container')
 const navbar = document.querySelector('.navbar')
 
-var paramsString =location.search;
+var paramsString = location.search;
 var searchParams = new URLSearchParams(paramsString);
 var names = searchParams.get("name")
 
 
+let inputFile = document.getElementById('files')
+let p = document.createElement('p');
+p.className = "user"
+p.style.margin = "auto"
+p.innerText = "  Hozircha hech qanday xabar yo'q... "
 
 
 var socket = io();
 var form = document.getElementById('form');
+// message send emit
 
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
-  if (text.value) {
-    socket.emit('chat message', {
-      message:text.value,
-      name:names,
-      id:socket.id
+text.addEventListener('input',()=>{
+  if(text.value){
+    document.getElementById('fileWrap').style.display = "none"
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (text.value) {
+        document.getElementById('fileWrap').style.display = "flex"
+          socket.emit('chat message', {
+          message:text.value,
+          name:names,
+          id:socket.id
+        });
+        text.value = '';
+      }
     });
-    text.value = '';
   }
-});
+})
+
+
+let msgCounter = 0;
 socket.on('chat message',(msg)=>{
+  msgCounter++;
     let div = document.createElement('div')
-    divWrap = document.createElement('div')
+    let divWrap = document.createElement('div')
     userText= document.createElement('p')
     userName = document.createElement('p');
 
+    divWrap.id = "msg/"+msgCounter;
 div.className = 'user'
 userText.className = 'msg-text'
 userName.className = 'msg-user'
@@ -42,6 +59,12 @@ if(msg.id == socket.id){
   divWrap.className = 'wrapRight'
   userName.style.display ="none"
   div.style.borderBottomRightRadius="0"
+  divWrap.addEventListener('click',()=>{
+    // divWrap.style.display ="none"
+    messageOpt();
+  })
+
+
 }
 else{
   divWrap.className = 'wrapleft'
@@ -57,12 +80,6 @@ chat.scrollTo( 0, chat.scrollHeight);
 hasMessage();
 })
 
-
-
-let p = document.createElement('p');
-p.className = "user"
-p.style.margin = "auto"
-p.innerText = "  Hozircha hech qanday xabar yo'q... "
 
 function hasMessage(){
   if(listMessage.childElementCount==0){
@@ -86,28 +103,37 @@ socket.on('userlist',(data)=>{
 
 
 
+// media send
+inputFile.addEventListener('change', (input)=> {
+  let file = input.target.files[0];
+  let reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function() {
+      let typeMedia = reader.result.split(';')[0].split(':')[1].split('/')[0];
+      socket.emit('media',{
+        id:socket.id,
+        name:names,
+        url:reader.result
+      });
+  };
+  reader.onerror = function() {
+  console.log(reader.error);
+  };
+  });
 
-$(function(){
-$('#file').on('change',(e)=>{
-    var file = e.originalEvent.target.files[0]
-    var reader = new FileReader();
-    reader.onload = function (evt){
-        socket.emit('user image',  {
-          id:socket.id,
-          url:evt.target.result,
-          name:names
-        });
-    };
-    reader.readAsDataURL(file);
-})
-})
-socket.on('imageSend',(base64image)=>{
+
+
+socket.on('media',(media)=>{
   let divWrap = document.createElement('div')
   let divUser = document.createElement('div');
   divUser.className = "user"
   divUser.style.padding = "0"
-  if(base64image.id == socket.id){
+  if(media.id == socket.id){
     divWrap.className = 'wrapRight'
+    divWrap.addEventListener('click',()=>{
+      messageOpt();
+    })
+
     divUser.style.borderBottomRightRadius="0"
   }
   else{
@@ -115,13 +141,41 @@ socket.on('imageSend',(base64image)=>{
     divUser.style.backgroundColor="var(--black)"
     divUser.style.borderBottomLeftRadius="0"
   }
-  divUser.innerHTML=
-  '<p class ="msg-user absolute">'+base64image.name+
-  '<p class="absolute size">'+Math.floor(base64image.url.length*3/4096)+' kb</p>'+
-  '</p><img class ="image" src="'+base64image.url+'"/>'
+ let typeMedia = media.url.split(';')[0].split(':')[1].split('/')[0];
+  if(typeMedia == 'image' ){
+    divUser.innerHTML =
+  '<p class ="msg-user absolute">'+media.name+
+  '<p class="absolute size">'+Math.floor(media.url.length*3/4096)+' kb</p>'+
+  '</p><img class ="image" src="'+media.url+'"/>'
+  }
+ 
+//   base64image.forEach(image => {
+//     divUser.innerHTML +=
+//   '<p class ="msg-user absolute">'+image+
+//   '<p class="absolute size">'+Math.floor(image.url.length*3/4096)+' kb</p>'+
+//   '</p><img class ="image" src="'+image.url+'"/>'
+// });
+
+  p.style.display ="none"
   divWrap.appendChild(divUser);
   listMessage.appendChild(divWrap);
-  chat.scrollTo( 0, listMessage.scrollHeight);
+  chat.scrollTo(0,listMessage.scrollHeight)
 })
+
+
+
+
+
+
+// Message options window
+let msgWindow = document.createElement('div');
+let msgDelete= document.createElement('div');
+function messageOpt(id){
+  msgWindow.className  = "msgWindow"
+  msgDelete.innerHTML = 'Delete'
+  msgWindow.appendChild(msgDelete);
+  document.body.appendChild(msgWindow)
+}
+
 
 

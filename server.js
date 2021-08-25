@@ -5,10 +5,21 @@ const http = require('http');
 const path = require('path');
 const server = http.createServer(app);
 
+// const mongoose = require('mongoose');
+
+// mongoose.connect('mongodb://localhost/test',{useNewUrlParser:true,useUnifiedTopology: true})
+// .then(()=>{
+//   console.log('connected');
+// })
+// .catch((err)=>{
+//   console.log('error',err);
+// })
+
+
+
 
 const {Server} = require('socket.io');
 const io = new Server(server);
-
 
 const PORT= process.env.PORT||3000;
 app.use(express.static(__dirname + '/public'))
@@ -61,11 +72,10 @@ socket.on('disconnect', function (data) {
     }
 
 
-socket.on('user image',(image)=>{
-  io.emit('imageSend',image);
+socket.on('media',(media)=>{
+  io.emit('media',media);
+
 })
-
-
 
 
 

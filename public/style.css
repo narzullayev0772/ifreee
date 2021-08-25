@@ -110,20 +110,20 @@
 }
 .input{
     position: relative;
-    width: 70%;
+    width: 100%;
     border: 0;
     outline: 0;
     background:none;
     resize: none;
     overflow: hidden;
-    background-color:var(--white);
+    color: var(--white);
     border-radius:1em;
     font-size: 1.4rem;
     padding: 10px;
     scroll-behavior: smooth;
 }
 .send{
-    background-color: var(--white);
+    background: none;
     width: 3rem;
     height: 3rem;
     border:0;
@@ -141,7 +141,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    max-height: fit-content;
+    max-height: 75vh;
 }
 .image{
 width: 100%;
@@ -162,7 +162,7 @@ border: 1px solid var(--white);
     width: 3rem;
     height: 3rem;
     cursor: pointer;
-    background-color:var(--white);
+    background: none;
     border-radius: 3rem;
     display: flex;
     align-items: center;
@@ -173,8 +173,14 @@ border: 1px solid var(--white);
     opacity: 0;
     width: 3rem;
     position:absolute;
+    height: 3rem;
 }
-
+.fileWrap i{
+    color: #43686b;
+}
+i{
+    color: dodgerblue;
+}
 
 
 
@@ -295,6 +301,21 @@ border: 1px solid var(--white);
     white-space: pre;
     text-overflow: ellipsis;
     margin-left: 10%;
+}
+
+
+
+
+.msgWindow{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 10rem;
+    height: 50vh;
+    background-color:var(--black);
+    z-index: 5;
+    color: var(--white);
+    font-size: 1.6rem;
 }
 @media screen and (max-width:991px){
     .account{

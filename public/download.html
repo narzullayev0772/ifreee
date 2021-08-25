@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="mediastyle.css">
+    <script src="https://kit.fontawesome.com/ea10277d55.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="audio">
+        <div class="load">
+            <div class="controller" id="controller">
+                    <i class="fas fa-play" id="play"></i>
+                    <i class="fas fa-arrow-down absolute" id="down">
+                    </i>
+            </div>
+        </div>
+        <div class="info">
+            <p class="audioName">Audio Name</p>
+            <p class=" artist size" id="artist">Artist Name</p>
+            <input type='range' id='range' value="0" class="none">
+            <div class="time">
+                <p class="size">0:00/</p>
+                <p class="size" id="time"></p>
+                <p class="size" id="size">3 Mb </p>
+            </div>
+        </div>
+    </div>
+    <input type="file" id="file" >
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="media.js"></script>
+</html>
