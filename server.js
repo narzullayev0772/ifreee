@@ -77,36 +77,6 @@ socket.on('media',(media)=>{
 
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // send message
     socket.on('chat message', (msg) => {
       io.emit('chat message', msg);
@@ -127,25 +97,5 @@ socket.on('media',(media)=>{
   socket.on('disconnect',()=>{
     io.emit('on_off', {on_off:socket.connected});
   })
-  
-
-
-
-
-
-
-
-  });
-
-
-
-
-
-
-
-
-
-
-
-
+});
 server.listen(PORT)
